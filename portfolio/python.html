@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- for my google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Rokkitt&display=swap"
+      rel="stylesheet" />
+
+    <!-- normalize my code: -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/medium.css" />
+    <link rel="stylesheet" href="styles/large.css" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Julia Lassig's Python Projects" />
+    <title>Python Projects</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-grid">
+        <div class="header-img-div">
+          <img
+            src="images/julia-medium.jpg"
+            alt="Profile picture of Julia Lassig"
+            width="100"
+            height="111" />
+        </div>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/julia-lassig" target="_blank">
+            <img
+              class="social-logo"
+              src="images/linkedin.png"
+              alt="fb icon"
+              width="64"
+              ,
+              height="64" />
+          </a>
+        </div>
+        <!-- HAMBURGER ICON:  &#9776; -->
+        <div>
+          <button id="hamburgerBtn"><span>&#9776;</span><span>X</span></button>
+        </div>
+        <nav>
+          <ul id="primaryNav">
+            <li><a href="index.html">Home </a></li>
+            <li><a href="csharp.html">C#</a></li>
+            <li><a href="javascript.html">Javascript</a></li>
+            <li class="active"><a href="python.html">Python</a></li>
+            <li><a href="webdesign.html">Web Design</a></li>
+          </ul>
+        </nav>
+        <div class="header-date"></div>
+      </div>
+    </header>
+
+    <main class="basic-grid">
+      <hero><h1>Python Projects</h1></hero>
+
+      <div class="project-grid">
+        <div class="project-grid">
+          <div class="project-holder">
+            <div class="project-image">
+              <a href="#" target="blank"
+                ><img
+                  src="pythonprojects/diseasespreader.jpg"
+                  alt="Disease Spreader Simulation using Pygame"
+              /></a>
+            </div>
+            <div class="project-h2">
+              <h2>Pygame -Disease Spreader Simulation</h2>
+            </div>
+          </div>
+
+          <div class="project-holder">
+            <div class="project-image">
+              <a class="project-image" href="#" target="blank"
+                ><img
+                  src="pythonprojects/firstvision.jpg"
+                  alt="Picture drawn with Draw 2D library"
+              /></a>
+            </div>
+            <div class="project-h2">
+              <h2>Draw 2D Library- First Vision picture</h2>
+            </div>
+          </div>
+
+          <div class="project-holder">
+            <div class="project-image">
+              <a class="project-image" href="#" target="blank"
+                ><img
+                  src="pythonprojects/abacus.jpg"
+                  alt="Abacus Math Trainer made with Pygame"
+              /></a>
+            </div>
+            <div class="project-h2">
+              <h2>Pygame - Abacus Math trainer</h2>
+            </div>
+          </div>
+
+          <div class="project-holder">
+            <div class="project-image">
+              <a class="project-image" href="#" target="blank"
+                ><img
+                  src="pythonprojects/fluffernuffer.jpg"
+                  alt="A terminal game with choose-your-ending. "
+              /></a>
+            </div>
+            <div class="project-h2">
+              <h2>Terminal- Fluffernuffer Game</h2>
+            </div>
+          </div>
+        </div>
+        <!-- end of project grid -->
+      </div>
+    </main>
+    <footer>
+      <div class="footer1">
+        <p>&copy;<span id="copyright-year"></span> Julia Lassig</p>
+        <div id="date-mod"></div>
+      </div>
+    </footer>
+
+    <script src="scripts/navfooter.js" defer></script>
+  </body>
+</html>

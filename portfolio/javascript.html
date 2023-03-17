@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- for my google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Rokkitt&display=swap"
+      rel="stylesheet" />
+
+    <!-- normalize my code: -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/medium.css" />
+    <link rel="stylesheet" href="styles/large.css" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Julia Lassig's Javascript Projects" />
+    <title>Javascript Projects</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-grid">
+        <div class="header-img-div">
+          <img
+            src="images/julia-medium.jpg"
+            alt="Profile picture of Julia Lassig"
+            width="100"
+            height="111" />
+        </div>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/julia-lassig" target="_blank">
+            <img
+              class="social-logo"
+              src="images/linkedin.png"
+              alt="fb icon"
+              width="64"
+              ,
+              height="64" />
+          </a>
+        </div>
+        <!-- HAMBURGER ICON:  &#9776; -->
+        <div>
+          <button id="hamburgerBtn"><span>&#9776;</span><span>X</span></button>
+        </div>
+        <nav>
+          <ul id="primaryNav">
+            <li><a href="index.html">Home </a></li>
+            <li><a href="csharp.html">C#</a></li>
+            <li class="active"><a href="javascript.html">Javascript</a></li>
+            <li><a href="python.html">Python</a></li>
+            <li><a href="webdesign.html">Web Design</a></li>
+          </ul>
+        </nav>
+        <div class="header-date"></div>
+      </div>
+    </header>
+
+    <main class="basic-grid">
+      <hero><h1>Javascript Projects</h1></hero>
+
+      <div class="project-grid">
+        <div class="project-holder scripture-holder">
+          <div class="project-h2" id="newRandom">
+            <h2>Get a new random Scripture</h2>
+          </div>
+
+          <div class="displayScripture">
+            <p id="reference"></p>
+            <p id="scripture"></p>
+          </div>
+        </div>
+
+        <!-- PROPHET javascript thing:
+         <div class="project-holder">
+   
+          <div class="project-h2" id="randomProphet">
+            <h2>Get a random Prophet quote</h2>
+          </div>
+          <div class="cards"></div>
+        </div> -->
+
+        <div class="project-holder">
+          <div class="project-image">
+            <a
+              class="project-image"
+              href="https://jlassig.github.io/wdd230/lesson9/prophets.html"
+              target="blank"
+              ><img src="jsprojects/prophet.jpg" alt="Latter-Day Prophets"
+            /></a>
+          </div>
+          <div class="project-h2">
+            <h2>Latter-Day Prophets</h2>
+          </div>
+        </div>
+
+        <div class="project-holder">
+          <div class="project-image">
+            <a
+              class="project-image"
+              href="https://www.freecodecamp.org/certification/jlassig/javascript-algorithms-and-data-structures"
+              target="blank"
+              ><img
+                src="jsprojects/jscert.jpg"
+                alt="Certification from freecodecamp"
+            /></a>
+          </div>
+          <div class="project-h2">
+            <h2>Certification from freeCodeCamp</h2>
+          </div>
+        </div>
+      </div>
+      <!-- end of project grid -->
+    </main>
+    <footer>
+      <div class="footer1">
+        <p>&copy;<span id="copyright-year"></span> Julia Lassig</p>
+        <div id="date-mod"></div>
+      </div>
+    </footer>
+
+    <script src="scripts/navfooter.js" defer></script>
+    <script src="scripts/scripture.js"></script>
+    <!-- <script src="scripts/prophets.js" defer></script> -->
+  </body>
+</html>

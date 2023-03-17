@@ -1,0 +1,230 @@
+:root {
+  /*FONTS:*/
+  --heading-font: "Fjalla One", Arial, sans-serif;
+  --paragraph-font: "Rokkitt", Garamond, serif;
+
+  /*COLORS:*/
+  --primary-color: #04030f;
+  --secondary-color: #fcf7ff;
+  --accent1-color: #7c7287;
+  --accent2-color: #73c2be;
+
+  --nav-link-color: #e0e0e0;
+  --nav-background-color: #04030f;
+  --nav-hover-link-color: #04030f;
+  --nav-hover-background-color: #73c2be;
+}
+
+* {
+  font-family: var(--paragraph-font);
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--heading-font);
+  color: black;
+}
+h2 {
+  text-align: center;
+}
+
+.header-grid {
+  background-color: var(--nav-background-color);
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+nav {
+  grid-column: 1/4;
+  text-align: center;
+}
+
+nav ul li a {
+  color: var(--nav-link-color);
+  text-decoration: none;
+  display: block;
+  padding: 0.8rem 2vw;
+  border-top: 1px solid RGBA(0, 0, 0, 0.5);
+  font-family: var(--heading-font);
+}
+nav ul li.active a {
+  background-color: var(--accent1-color);
+  color: black;
+}
+nav ul li a:hover {
+  background-color: var(--nav-hover-background-color);
+  color: var(--nav-hover-link-color);
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#hamburgerBtn {
+  margin: 2rem 2vw;
+  background: transparent;
+  border: 1px solid RGBA(0, 0, 0, 0.5);
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  grid-column: 3/4;
+}
+
+nav ul {
+  display: none;
+}
+nav ul.open {
+  display: block;
+}
+
+#hamburgerBtn span:nth-child(1) {
+  display: block;
+}
+#hamburgerBtn span:nth-child(2) {
+  display: none;
+  font-family: var(--heading-font);
+}
+#hamburgerBtn.open span:nth-child(1) {
+  display: none;
+}
+#hamburgerBtn.open span:nth-child(2) {
+  display: block;
+  font-family: var(--heading-font);
+}
+
+.header-date {
+  background-color: var(--accent1-color);
+  color: black;
+  grid-column: 1/4;
+  margin: 10px;
+  padding: 0.25em;
+  text-align: center;
+}
+
+.social-logo {
+  border-radius: 30px;
+  width: 40px;
+  padding: 0.5em;
+  height: auto;
+}
+.social {
+  place-self: center;
+}
+
+.hero {
+  position: relative;
+}
+.hero h1 {
+  z-index: 2;
+  position: absolute;
+  top: 0px;
+  left: 10%;
+  color: var(--secondary-color);
+}
+
+/* .hero {
+  position: absolute;
+  z-index: 3;
+  bottom: 7%;
+  background-color: var(--accent2-color);
+} */
+
+.home-grid {
+  display: block;
+}
+
+.home-grid section {
+  border: 1px solid var(--primary-color);
+}
+
+.basic-grid h1 {
+  background-color: var(--accent2-color);
+  padding: 1em;
+  text-align: center;
+}
+
+.project-image {
+  background-color: var(--primary-color);
+  text-align: center;
+}
+.project-image img {
+  max-width: 100%;
+}
+.project-holder {
+  border: 10px solid var(--primary-color);
+  margin-top: 20px;
+}
+
+.project-h2 {
+  background-color: var(--accent2-color);
+  padding: 20px;
+}
+
+/*------------ random scripture on javascript page:------------ */
+#newRandom {
+  /* max-width: 300px; */
+  background-color: var(--accent2-color);
+
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--heading-font);
+}
+.displayScripture {
+  max-width: 90%;
+
+  margin: 0 auto;
+  background-color: var(--primary-color);
+  font-family: var(--paragraph-font);
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+  /* padding: 10px;
+  margin-bottom: 20px; */
+}
+.scripture-holder {
+  background-color: var(--primary-color);
+}
+
+/* --------------random prophet------------- */
+.prophet-card {
+  text-align: center;
+  display: grid;
+  grid-template-columns: (1fr 1fr);
+  background-color: var(--accent1-color);
+}
+.prophet-card > * {
+  padding: 0.5em;
+}
+
+.prophet-card h3 {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+.portrait {
+  grid-row: 2/4;
+}
+.quoteBox {
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
+#randomProphet {
+  /* max-width: 300px; */
+  background-color: var(--accent2-color);
+
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--heading-font);
+}
+
+footer {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 0.8em;
+  padding-bottom: 0.8em;
+}
