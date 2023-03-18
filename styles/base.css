@@ -116,7 +116,7 @@ nav ul.open {
   place-self: center;
 }
 
-.hero {
+/* .hero {
   position: relative;
 }
 .hero h1 {
@@ -125,22 +125,8 @@ nav ul.open {
   top: 0px;
   left: 10%;
   color: var(--secondary-color);
-}
-
-/* .hero {
-  position: absolute;
-  z-index: 3;
-  bottom: 7%;
-  background-color: var(--accent2-color);
 } */
 
-.home-grid {
-  display: block;
-}
-
-.home-grid section {
-  border: 1px solid var(--primary-color);
-}
 
 .basic-grid h1 {
   background-color: var(--accent2-color);
@@ -163,6 +149,9 @@ nav ul.open {
 .project-h2 {
   background-color: var(--accent2-color);
   padding: 20px;
+}
+.home-grid >*{
+  padding: 2em;
 }
 
 /*------------ random scripture on javascript page:------------ */
