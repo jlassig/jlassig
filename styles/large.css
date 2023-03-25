@@ -1,4 +1,4 @@
-@media only screen and (min-width: 1100px) {
+@media only screen and (min-width: 1000px) {
   body {
     max-width: 85%;
     margin: auto;
@@ -14,30 +14,10 @@
 
 
 
-    /* .project-grid{
- display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 20px;
-
-} */
-
-.project-grid-home{
-   display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        
-}
-  
-  
-
-  .hero h1 {
-    color: black;
   }
 
-
-  .hero
- {
-    grid-column: 2/3;
-  }
- 
 }

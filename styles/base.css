@@ -18,7 +18,8 @@
 * {
   font-family: var(--paragraph-font);
   font-weight: bold;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.09rem;
+
 }
 
 h1,
@@ -116,19 +117,8 @@ nav ul.open {
   place-self: center;
 }
 
-/* .hero {
-  position: relative;
-}
-.hero h1 {
-  z-index: 2;
-  position: absolute;
-  top: 0px;
-  left: 10%;
-  color: var(--secondary-color);
-} */
-
-
-.basic-grid h1 {
+.basic-grid h1,
+.home-grid h1 {
   background-color: var(--accent2-color);
   padding: 1em;
   text-align: center;
@@ -150,8 +140,31 @@ nav ul.open {
   background-color: var(--accent2-color);
   padding: 20px;
 }
-.home-grid >*{
-  padding: 2em;
+.project-grid-home {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.home-grid > * {
+  padding: 1em;
+}
+.aboutme {
+  text-align: center;
+}
+.me-img {
+  border: 10px solid var(--accent1-color);
+  padding: 20px;
+  display: block;
+  margin: 0 auto;
+
+
+
+
+}
+.me-p {
+  background-color: var(--accent2-color);
+  padding: 20px;
 }
 
 /*------------ random scripture on javascript page:------------ */
@@ -180,7 +193,7 @@ nav ul.open {
 }
 
 /* --------------random prophet------------- */
-.prophet-card {
+/* .prophet-card {
   text-align: center;
   display: grid;
   grid-template-columns: (1fr 1fr);
@@ -202,13 +215,13 @@ nav ul.open {
   grid-row: 3/4;
 }
 #randomProphet {
-  /* max-width: 300px; */
+   max-width: 300px; 
   background-color: var(--accent2-color);
 
   cursor: pointer;
   text-align: center;
   font-family: var(--heading-font);
-}
+} */
 
 footer {
   background-color: var(--primary-color);
