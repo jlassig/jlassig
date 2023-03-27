@@ -1,32 +1,36 @@
 using System.Reflection;
+using System.Media;
 
 namespace SpaceshipGame
 {
     public partial class Form1 : Form
     {
         //speed for moving the background images
-        private int spaceSpeed;
+        private int _spaceSpeed;
 
         //this is how many seconds long the game goes until the "end of the game". 
-        private int timeLeft = 20; 
+        private int _timeLeft = 5;
 
-        private Player player = new Player();
+        private Player _player = new Player();
 
         //get some Randoms in there:
-        private Random spaceRand = new Random();
-        private Random rand = new Random();
-        private Random enemyPosition = new Random();
+        private Random _spaceRand = new Random();
+        private Random _rand = new Random();
+        private Random _enemyPosition = new Random();
         //the ints that the randoms return when choosing an enemy. 
-        private int enemyImage;
-        private int enemyImage2;
+        private int _enemyImage;
+        private int _enemyImage2;
 
-        bool goleft, goright;
-        bool isGameRunning;
-        bool isMissileFired;
-        bool isLoser;
+        bool _goleft;
+        bool _goright;
+        bool _isGameRunning;
+        bool _isMissileFired;
+        bool _isLoser;
+
+        SoundPlayer _pew = new SoundPlayer(@"C:\Users\Julia\Desktop\jlassig\csharpprojects\SpaceshipGame\Images\pew.wav");
 
 
-        
+
         public Form1()
         {
             //pulls up the form
@@ -41,7 +45,7 @@ namespace SpaceshipGame
 
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
-            if (isGameRunning)
+            if (_isGameRunning)
             {
                 //"e" == "event"
                 //move the player Left and Right.
@@ -49,21 +53,21 @@ namespace SpaceshipGame
 
                 if (e.KeyCode == Keys.Left)
                 {
-                    goleft = true;
+                    _goleft = true;
 
                 }
                 if (e.KeyCode == Keys.Right)
                 {
-                    goright = true;
+                    _goright = true;
                 }
 
                 //fire a missile
                 if (e.KeyCode == Keys.Space)
                 {
-                    isMissileFired= true;
+                    _isMissileFired = true;
                     //setting the missilePicBox to the location of the Player
-                    missilePicBox.Location = new Point(playerPictureBox.Location.X, playerPictureBox.Location.Y);
-                    
+                    missilePicBox.Location = new Point((playerPictureBox.Location.X + 50), (playerPictureBox.Location.Y - 38));
+                    _pew.Play();
                 }
             }
 
@@ -71,17 +75,17 @@ namespace SpaceshipGame
 
         private void KeyIsUp(object sender, KeyEventArgs e)
         {
-            if (isGameRunning)
+            if (_isGameRunning)
             {
                 //move the player the opposite of above. 
                 if (e.KeyCode == Keys.Left)
                 {
-                    goleft = false;
+                    _goleft = false;
 
                 }
                 if (e.KeyCode == Keys.Right)
                 {
-                    goright = false;
+                    _goright = false;
                 }
             }
 
@@ -90,45 +94,45 @@ namespace SpaceshipGame
         private void GameTimerEvent(object sender, EventArgs e)
         {
 
-            bool missileReady1 = player.IsMissileReady("missile1");
+            bool missileReady1 = _player.IsMissileReady("missile1");
 
-            player.MovePlayer(playerPictureBox, goleft, goright);
+            _player.MovePlayer(playerPictureBox, _goleft, _goright);
 
             if (enemyPicBox1.Top <= -100)
             {
-                enemyImage = rand.Next(1, 5);
+                _enemyImage = _rand.Next(1, 5);
             }
-            if(enemyPicBox2.Top <= -100)
+            if (enemyPicBox2.Top <= -100)
             {
-                enemyImage2 = rand.Next(1, 4);
+                _enemyImage2 = _rand.Next(1, 4);
             }
 
-            DrawEnemy1(enemyImage);
-            DrawEnemy2(enemyImage2);
+            DrawEnemy1(_enemyImage);
+            DrawEnemy2(_enemyImage2);
 
             if (enemyPicBox1.Top > 675)
             {
                 //set the EnemyTop somewhere randomly above the top of the screen between 
                 //-99 and -130
-                enemyPicBox1.Top = enemyPosition.Next(99, 130) * -1;
+                enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
 
                 //If it's the right one:
-                enemyPicBox1.Left = enemyPosition.Next(230,350);
+                enemyPicBox1.Left = _enemyPosition.Next(230, 350);
             }
 
             if (enemyPicBox2.Top > 675)
             {
-                enemyPicBox2.Top = enemyPosition.Next(99, 130) * -1;
+                enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
 
                 //If it's the left one:
-                enemyPicBox2.Left = enemyPosition.Next(80,230);
+                enemyPicBox2.Left = _enemyPosition.Next(80, 230);
 
             }
 
-            //there are two PictureBoxes, space1 and space2. At the start, 
+            //there are two PictureBoxes, space1 and space2.  
             //moving the background images:
-            space1.Top += spaceSpeed;
-            space2.Top += spaceSpeed;
+            space1.Top += _spaceSpeed;
+            space2.Top += _spaceSpeed;
 
 
             if (space1.Top > 675)
@@ -140,14 +144,14 @@ namespace SpaceshipGame
             if (space2.Top > 675)
             {
                 ChangeSpaceImage(space2);
-            }            
+            }
 
-            if (isMissileFired)
+            if (_isMissileFired)
             {
                 //isMissileFired= false;
                 //if (!isMissileFired && missileReady1)
                 //{
-                    player.FireMissile("missile1");
+                _player.FireMissile("missile1");
             }
             //isMissileFired = false;
 
@@ -155,8 +159,8 @@ namespace SpaceshipGame
             //COLLISION DETECTION FOR THE PLAYER:
             if (playerPictureBox.Bounds.IntersectsWith(enemyPicBox1.Bounds) || playerPictureBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
             {
-                isLoser = true;
-                GameOver(); // when an enemy hits the player
+                _isLoser = true;
+                //GameOver(); // when an enemy hits the player
             }
 
 
@@ -167,31 +171,31 @@ namespace SpaceshipGame
         private void ChangeSpaceImage(PictureBox tempSpace)
         {
             //first get a random number: 
-            int spaceImageNum = spaceRand.Next(1, 6);
+            int spaceImageNum = _spaceRand.Next(1, 6);
             if (spaceImageNum == 1)
             {
                 //if it was the number 1, then draw the 1st image in the tempSpace pictureBox
-                BackgroundImage s1 = new BackgroundImage(spaceSpeed, Properties.Resources.spaceImage1);
+                BackgroundImage s1 = new BackgroundImage(_spaceSpeed, Properties.Resources.spaceImage1);
                 tempSpace.Image = s1.ImageSource;
             }
             else if (spaceImageNum == 2)
             {
-                BackgroundImage s2 = new BackgroundImage(spaceSpeed, Properties.Resources.spaceImage2);
+                BackgroundImage s2 = new BackgroundImage(_spaceSpeed, Properties.Resources.spaceImage2);
                 tempSpace.Image = s2.ImageSource;
             }
             else if (spaceImageNum == 3)
             {
-                BackgroundImage s3 = new BackgroundImage(spaceSpeed, Properties.Resources.spaceImage3);
+                BackgroundImage s3 = new BackgroundImage(_spaceSpeed, Properties.Resources.spaceImage3);
                 tempSpace.Image = s3.ImageSource;
             }
             else if (spaceImageNum == 4)
             {
-                BackgroundImage s4 = new BackgroundImage(spaceSpeed, Properties.Resources.spaceImage4);
+                BackgroundImage s4 = new BackgroundImage(_spaceSpeed, Properties.Resources.spaceImage4);
                 tempSpace.Image = s4.ImageSource;
             }
             else if (spaceImageNum == 5)
             {
-                BackgroundImage s5 = new BackgroundImage(spaceSpeed, Properties.Resources.spaceImage5);
+                BackgroundImage s5 = new BackgroundImage(_spaceSpeed, Properties.Resources.spaceImage5);
                 tempSpace.Image = s5.ImageSource;
             }
 
@@ -221,11 +225,11 @@ namespace SpaceshipGame
                 {                    //set the EnemyTop somewhere randomly above the top of the screen between 
                     //-99 and -130
 
-                    enemyPicBox1.Top = enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
 
                     //If it's the right one:
-                    enemyPicBox1.Left = enemyPosition.Next(230, 350);
-                    player.Score += v.PointValue;
+                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
+                    _player.Score += v.PointValue;
 
                 }
             }
@@ -244,17 +248,17 @@ namespace SpaceshipGame
 
                     //set the EnemyTop somewhere randomly above the top of the screen between 
                     //-99 and -130
-                    enemyPicBox1.Top = enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
 
                     //If it's the right one:
-                    enemyPicBox1.Left = enemyPosition.Next(230, 350);
+                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
 
-                    player.Score += h.PointValue;
+                    _player.Score += h.PointValue;
                 }
 
 
             }
-            else if(enemyImage == 3)
+            else if (enemyImage == 3)
             {
                 CloakEnemy c = new CloakEnemy(9, 20, Properties.Resources.purpleEnemy);
                 enemyPicBox1.Image = c.EnemyImage;
@@ -267,19 +271,19 @@ namespace SpaceshipGame
 
                     //set the EnemyTop somewhere randomly above the top of the screen between 
                     //-99 and -130
-                    enemyPicBox1.Top = enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
 
                     //If it's the right one:
-                    enemyPicBox1.Left = enemyPosition.Next(230, 350);
+                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
 
-                    player.Score += c.PointValue;
+                    _player.Score += c.PointValue;
                 }
 
             }
-            else if(enemyImage == 4)
+            else if (enemyImage == 4)
             {
                 DiagonalEnemy d = new DiagonalEnemy(9, 20, Properties.Resources.leftAsteroid, 3);
-                
+
                 enemyPicBox1.Image = d.EnemyImage;
                 if (enemyPicBox1.Top < 675)
                 {
@@ -290,12 +294,12 @@ namespace SpaceshipGame
 
                     //set the EnemyTop somewhere randomly above the top of the screen between 
                     //-99 and -130
-                    enemyPicBox1.Top = enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
 
                     //If it's the right one:
-                    enemyPicBox1.Left = enemyPosition.Next(230, 350);
+                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
 
-                    player.Score += d.PointValue;
+                    _player.Score += d.PointValue;
                 }
 
 
@@ -322,11 +326,11 @@ namespace SpaceshipGame
                 {  //set the EnemyTop somewhere randomly above the top of the screen between 
                     //-99 and -130
 
-                    enemyPicBox2.Top = enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
 
                     //If it's the right one:
-                    enemyPicBox2.Left = enemyPosition.Next(230, 350);
-                    player.Score += v.PointValue;
+                    enemyPicBox2.Left = _enemyPosition.Next(230, 350);
+                    _player.Score += v.PointValue;
 
                 }
             }
@@ -341,10 +345,10 @@ namespace SpaceshipGame
                 }
                 //COLLISION DETECTION FOR THE MISSILE: 
                 if (missilePicBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
-                {  
-                    enemyPicBox2.Top = enemyPosition.Next(99, 130) * -1;
-                    enemyPicBox2.Left = enemyPosition.Next(230, 350);
-                    player.Score += h.PointValue;
+                {
+                    enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox2.Left = _enemyPosition.Next(230, 350);
+                    _player.Score += h.PointValue;
 
                 }
 
@@ -361,9 +365,9 @@ namespace SpaceshipGame
                 //COLLISION DETECTION FOR THE MISSILE: 
                 if (missilePicBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
                 {
-                    enemyPicBox2.Top = enemyPosition.Next(99, 130) * -1;
-                    enemyPicBox2.Left = enemyPosition.Next(230, 350);
-                    player.Score += c.PointValue;
+                    enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
+                    enemyPicBox2.Left = _enemyPosition.Next(230, 350);
+                    _player.Score += c.PointValue;
 
                 }
 
@@ -374,28 +378,28 @@ namespace SpaceshipGame
 
         private void YouWinTimerEvent(Object sender, EventArgs e)
         {
-            if(isLoser)
+            if (_isLoser)
             {
-                timeLeft= 0;
+                _timeLeft = 0;
                 GameOver();
-            }       
-            
-            
-            else if(timeLeft > 0)
-            {
-                timeLeft--;
-                youWinLabel.Visible = false;
-                btnStart.Enabled= false;
-                Score.Text = ($"Score: {player.Score}");
             }
-            else if (timeLeft <= 0)
+
+
+            else if (_timeLeft > 0)
+            {
+                _timeLeft--;
+                youWinLabel.Visible = false;
+                btnStart.Enabled = false;
+                Score.Text = ($"Score: {_player.Score}");
+            }
+            else if (_timeLeft <= 0)
             {
 
-                isGameRunning = false;
+                _isGameRunning = false;
                 youWinLabel.Visible = true;
                 btnStart.Enabled = true;
 
-                spaceSpeed = 0;
+                _spaceSpeed = 0;
                 GameTimer.Stop();
 
                 //maybe run GameOver() here?  instead and put the above values in 
@@ -414,39 +418,43 @@ namespace SpaceshipGame
 
         private void GameOver()
         {
-            isGameRunning = false;
+            _isGameRunning = false;
             GameTimer.Stop();
-            spaceSpeed = 0;
+            _spaceSpeed = 0;
             btnStart.Enabled = true;
             enemyPicBox2.Top = -189;
             enemyPicBox1.Top = -150;
             youWinLabel.Text = "You Lose";
             youWinLabel.Visible = true;
+
         }
         //when the user clicks the button to Play the Game
         private void StartGame(object sender, EventArgs e)
         {
-            isGameRunning= false;
+            _isGameRunning = false;
             //starts the game when the button is clicked
             ResetGame();
         }
+
 
         //after the user dies or wins, they can restart the game by clicking the button
         private void ResetGame()
         {
 
-            player.EmptyDictionary();
-            player.FillInDictionary(missilePicBox, missilePicBox2, missilePicBox3);
-            isGameRunning = true;
-            goleft = false;
-            goright = false;
+            _player.EmptyDictionary();
+            _player.FillInDictionary(missilePicBox, missilePicBox2, missilePicBox3);
+            _isGameRunning = true;
+            _goleft = false;
+            _goright = false;
             btnStart.Enabled = false;
-            YouWinTimer.Enabled = true; 
+            YouWinTimer.Enabled = true;
+            youWinLabel.Text = "You Win";
             youWinLabel.Visible = false;
-            timeLeft= 20;
-            spaceSpeed = 8;
-            player.Score = 0;
-            isLoser = false;
+            _timeLeft = 5;
+            _spaceSpeed = 8;
+            _player.Score = 0;
+            _isLoser= false;
+
 
 
             GameTimer.Start();

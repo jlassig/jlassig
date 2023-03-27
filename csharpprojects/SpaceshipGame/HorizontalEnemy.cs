@@ -24,29 +24,29 @@ namespace SpaceshipGame
         public override void MoveTheEnemy(PictureBox enemyBox)
         {
 
-                enemyBox.Top += EnemySpeed;
+            enemyBox.Top += EnemySpeed;
 
 
-                if (_isMovingRight)
+            if (_isMovingRight)
+            {
+                enemyBox.Left += HorizontalSpeed;
+                if (enemyBox.Left > 304)
                 {
-                    enemyBox.Left += HorizontalSpeed;
-                    if (enemyBox.Left > 304)
-                    {
-                        _isMovingRight = false;
+                    _isMovingRight = false;
 
-                    }
                 }
+            }
  
-                if (_isMovingRight == false)
+            if (_isMovingRight == false)
+            {
+                enemyBox.Left -= 200;
+                if (enemyBox.Left < 100)
                 {
-                    enemyBox.Left -= 200;
-                    if (enemyBox.Left < 100)
-                    {
-                        _isMovingRight = true;
-                    }
-
-
+                    _isMovingRight = true;
                 }
+
+
+            }
             
 
         }
