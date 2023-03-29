@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\csharpprojects",
+    "\\csharpprojects\\SpaceshipGame",
+    "\\scripts",
+    "\\styles",
+    "\\webdesignprojects"
   ],
+  "SelectedNode": "\\csharpprojects\\SpaceshipGame\\Properties",
   "PreviewInSolutionExplorer": false
 }

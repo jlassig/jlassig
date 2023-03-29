@@ -40,10 +40,10 @@
             this.playerPictureBox = new System.Windows.Forms.PictureBox();
             this.space2 = new System.Windows.Forms.PictureBox();
             this.space1 = new System.Windows.Forms.PictureBox();
-            this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.btnStart = new System.Windows.Forms.Button();
-            this.Score = new System.Windows.Forms.Label();
-            this.YouWinTimer = new System.Windows.Forms.Timer(this.components);
+            this.score = new System.Windows.Forms.Label();
+            this.youWinTimer = new System.Windows.Forms.Timer(this.components);
             this.missileTimer = new System.Windows.Forms.Timer(this.components);
             this.spacePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.missilePicBox2)).BeginInit();
@@ -90,7 +90,7 @@
             // missilePicBox2
             // 
             this.missilePicBox2.Image = global::SpaceshipGame.Properties.Resources.blast;
-            this.missilePicBox2.Location = new System.Drawing.Point(227, 412);
+            this.missilePicBox2.Location = new System.Drawing.Point(300,-200);
             this.missilePicBox2.Name = "missilePicBox2";
             this.missilePicBox2.Size = new System.Drawing.Size(10, 41);
             this.missilePicBox2.TabIndex = 13;
@@ -100,7 +100,7 @@
             // missilePicBox3
             // 
             this.missilePicBox3.Image = global::SpaceshipGame.Properties.Resources.blast;
-            this.missilePicBox3.Location = new System.Drawing.Point(227, 147);
+            this.missilePicBox3.Location = new System.Drawing.Point(200,-200);
             this.missilePicBox3.Name = "missilePicBox3";
             this.missilePicBox3.Size = new System.Drawing.Size(10, 41);
             this.missilePicBox3.TabIndex = 12;
@@ -110,7 +110,7 @@
             // missilePicBox
             // 
             this.missilePicBox.Image = global::SpaceshipGame.Properties.Resources.blast;
-            this.missilePicBox.Location = new System.Drawing.Point(167, 521);
+            this.missilePicBox.Location = new System.Drawing.Point(100,-200);
             this.missilePicBox.Name = "missilePicBox";
             this.missilePicBox.Size = new System.Drawing.Size(10, 41);
             this.missilePicBox.TabIndex = 11;
@@ -172,8 +172,8 @@
             // 
             // GameTimer
             // 
-            this.GameTimer.Interval = 20;
-            this.GameTimer.Tick += new System.EventHandler(this.GameTimerEvent);
+            this.gameTimer.Interval = 20;
+            this.gameTimer.Tick += new System.EventHandler(this.GameTimerEvent);
             // 
             // btnStart
             // 
@@ -189,17 +189,17 @@
             // 
             // Score
             // 
-            this.Score.Font = new System.Drawing.Font("Stencil", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Score.Location = new System.Drawing.Point(181, 749);
-            this.Score.Name = "Score";
-            this.Score.Size = new System.Drawing.Size(163, 34);
-            this.Score.TabIndex = 10;
-            this.Score.Text = "Score: ";
+            this.score.Font = new System.Drawing.Font("Stencil", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.score.Location = new System.Drawing.Point(181, 749);
+            this.score.Name = "Score";
+            this.score.Size = new System.Drawing.Size(163, 34);
+            this.score.TabIndex = 10;
+            this.score.Text = "Score: ";
             // 
             // YouWinTimer
             // 
-            this.YouWinTimer.Interval = 1000;
-            this.YouWinTimer.Tick += new System.EventHandler(this.YouWinTimerEvent);
+            this.youWinTimer.Interval = 1000;
+            this.youWinTimer.Tick += new System.EventHandler(this.YouWinTimerEvent);
             // 
             // Form1
             // 
@@ -207,7 +207,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(507, 804);
-            this.Controls.Add(this.Score);
+            this.Controls.Add(this.score);
             this.Controls.Add(this.spacePanel);
             this.Controls.Add(this.btnStart);
             this.Name = "Form1";
@@ -230,11 +230,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.Timer GameTimer;
+        private System.Windows.Forms.Timer gameTimer;
         private Button btnStart;
         private Panel spacePanel;
-        private Label Score;
-        private System.Windows.Forms.Timer YouWinTimer;
+        private Label score;
+        private System.Windows.Forms.Timer youWinTimer;
         private System.Windows.Forms.Timer missileTimer;
         private PictureBox space1;
         private PictureBox playerPictureBox;

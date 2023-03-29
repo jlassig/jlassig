@@ -9,9 +9,10 @@ namespace SpaceshipGame
         private int _spaceSpeed;
 
         //this is how many seconds long the game goes until the "end of the game". 
-        private int _timeLeft = 5;
+        private int _timeLeft;
 
         private Player _player = new Player();
+        
 
         //get some Randoms in there:
         private Random _spaceRand = new Random();
@@ -20,14 +21,18 @@ namespace SpaceshipGame
         //the ints that the randoms return when choosing an enemy. 
         private int _enemyImage;
         private int _enemyImage2;
+        //the various bools, the first two are for the player
+        private bool _goleft;
+        private bool _goright;
+        //and this one is so that we stop getting user input:
+        private bool _isGameRunning;
+        //well, if you get hit, then _isLoser = true! ha ha ha
+        private bool _isLoser;
 
-        bool _goleft;
-        bool _goright;
-        bool _isGameRunning;
-        bool _isMissileFired;
-        bool _isLoser;
-
+        //Oh yeah, added a 'pew' sound for my lasers! It makes them oh so scary for the enemies. lol
         SoundPlayer _pew = new SoundPlayer(@"C:\Users\Julia\Desktop\jlassig\csharpprojects\SpaceshipGame\Images\pew.wav");
+        //a List to hold all the missiles.
+        private List<Missile> _missiles= new List<Missile>();
 
 
 
@@ -43,6 +48,7 @@ namespace SpaceshipGame
             //I don't know what this does. This was put in here by Visual Studio
         }
 
+        //is the user pressing a key?
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (_isGameRunning)
@@ -61,19 +67,14 @@ namespace SpaceshipGame
                     _goright = true;
                 }
 
-                //fire a missile
-                if (e.KeyCode == Keys.Space)
-                {
-                    _isMissileFired = true;
-                    //setting the missilePicBox to the location of the Player
-                    missilePicBox.Location = new Point((playerPictureBox.Location.X + 50), (playerPictureBox.Location.Y - 38));
-                    _pew.Play();
-                }
+
+
             }
 
         }
 
-        private void KeyIsUp(object sender, KeyEventArgs e)
+            //did the user release the key? 
+            private void KeyIsUp(object sender, KeyEventArgs e)
         {
             if (_isGameRunning)
             {
@@ -87,17 +88,29 @@ namespace SpaceshipGame
                 {
                     _goright = false;
                 }
+                //fire a missile
+                if (e.KeyCode == Keys.Space)
+                {
+
+                    FireMissile();
+                    _pew.Play();
+
+                }
+
             }
 
         }
 
         private void GameTimerEvent(object sender, EventArgs e)
         {
+            //this is the label for the score:
+            score.Text = ($"Score: {_player.Score}");
 
-            bool missileReady1 = _player.IsMissileReady("missile1");
-
+            //move the player:
             _player.MovePlayer(playerPictureBox, _goleft, _goright);
 
+
+            //get a random number for the next enemy drawn, this makes it so the enemy isn't always the same.
             if (enemyPicBox1.Top <= -100)
             {
                 _enemyImage = _rand.Next(1, 5);
@@ -107,6 +120,7 @@ namespace SpaceshipGame
                 _enemyImage2 = _rand.Next(1, 4);
             }
 
+            //now draw them
             DrawEnemy1(_enemyImage);
             DrawEnemy2(_enemyImage2);
 
@@ -129,7 +143,7 @@ namespace SpaceshipGame
 
             }
 
-            //there are two PictureBoxes, space1 and space2.  
+            //there are two background PictureBoxes, space1 and space2.  
             //moving the background images:
             space1.Top += _spaceSpeed;
             space2.Top += _spaceSpeed;
@@ -146,26 +160,64 @@ namespace SpaceshipGame
                 ChangeSpaceImage(space2);
             }
 
-            if (_isMissileFired)
-            {
-                //isMissileFired= false;
-                //if (!isMissileFired && missileReady1)
-                //{
-                _player.FireMissile("missile1");
-            }
-            //isMissileFired = false;
+            ////COLLISION DETECTION FOR THE PLAYER:
 
-
-            //COLLISION DETECTION FOR THE PLAYER:
-            if (playerPictureBox.Bounds.IntersectsWith(enemyPicBox1.Bounds) || playerPictureBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
+            if(playerPictureBox.Image != null && enemyPicBox1.Image != null && playerPictureBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
             {
                 _isLoser = true;
-                //GameOver(); // when an enemy hits the player
+                GameOver();
             }
+            if (playerPictureBox.Image != null && enemyPicBox2.Image != null && playerPictureBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
+            {
+                _isLoser = true;
+                GameOver();
+            }
+
 
 
 
         }
+
+        private void FireMissile()
+        {
+            //check to see if we need to remove any missing from the List of missiles
+            CheckMissileStatus();
+
+
+            if (_missiles.Count == 0)
+            {
+                Missile missile = new Missile((playerPictureBox.Left + (playerPictureBox.Width / 2)), (playerPictureBox.Top + (playerPictureBox.Height / 2)), missilePicBox);
+                _missiles.Add(missile);
+                missile.MakeMissile(this);
+            }
+            else if (_missiles.Count == 1)
+            {
+
+                Missile missile = new Missile((playerPictureBox.Left + (playerPictureBox.Width / 2)), (playerPictureBox.Top + (playerPictureBox.Height / 2)), missilePicBox2);
+                _missiles.Add(missile);
+                missile.MakeMissile(this);
+            }
+            else if (_missiles.Count == 2)
+            {
+                Missile missile = new Missile((playerPictureBox.Left + (playerPictureBox.Width / 2)), (playerPictureBox.Top + (playerPictureBox.Height / 2)), missilePicBox3);
+                _missiles.Add(missile);
+                missile.MakeMissile(this);
+            }
+
+        }
+        //check to see if we need to remove any missiles from the List<Missile> _missiles
+        private void CheckMissileStatus()
+        {
+            for (int i = _missiles.Count - 1; i >= 0; i--)
+            {
+                Missile missile = _missiles[i];
+                if (missile.MissilePictureBox.Top <= 0)
+                {
+                    _missiles.RemoveAt(i);
+                }
+            }
+        }
+
 
         //get a random space image:
         private void ChangeSpaceImage(PictureBox tempSpace)
@@ -207,6 +259,7 @@ namespace SpaceshipGame
         //draw the enemy in enemyPicBox1 (the right enemy)
         private void DrawEnemy1(int enemyImage)
         {
+            int points = 0;
 
             if (enemyImage == 1)
             {
@@ -220,18 +273,7 @@ namespace SpaceshipGame
                     //move the enemy!!!
                     v.MoveTheEnemy(enemyPicBox1);
                 }
-                //COLLISION DETECTION FOR THE MISSILE: 
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
-                {                    //set the EnemyTop somewhere randomly above the top of the screen between 
-                    //-99 and -130
-
-                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
-
-                    //If it's the right one:
-                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
-                    _player.Score += v.PointValue;
-
-                }
+                points = v.PointValue;
             }
             else if (enemyImage == 2)
             {
@@ -242,20 +284,7 @@ namespace SpaceshipGame
                 {
                     h.MoveTheEnemy(enemyPicBox1);
                 }
-
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
-                {
-
-                    //set the EnemyTop somewhere randomly above the top of the screen between 
-                    //-99 and -130
-                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
-
-                    //If it's the right one:
-                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
-
-                    _player.Score += h.PointValue;
-                }
-
+                points = h.PointValue;
 
             }
             else if (enemyImage == 3)
@@ -266,18 +295,7 @@ namespace SpaceshipGame
                 {
                     c.MoveTheEnemy(enemyPicBox1);
                 }
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
-                {
-
-                    //set the EnemyTop somewhere randomly above the top of the screen between 
-                    //-99 and -130
-                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
-
-                    //If it's the right one:
-                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
-
-                    _player.Score += c.PointValue;
-                }
+                points= c.PointValue;
 
             }
             else if (enemyImage == 4)
@@ -289,25 +307,18 @@ namespace SpaceshipGame
                 {
                     d.MoveTheEnemy(enemyPicBox1);
                 }
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
-                {
-
-                    //set the EnemyTop somewhere randomly above the top of the screen between 
-                    //-99 and -130
-                    enemyPicBox1.Top = _enemyPosition.Next(99, 130) * -1;
-
-                    //If it's the right one:
-                    enemyPicBox1.Left = _enemyPosition.Next(230, 350);
-
-                    _player.Score += d.PointValue;
-                }
-
+                points= d.PointValue;
 
             }
+            MissileCollisionDetection(missilePicBox, enemyPicBox1, points);
+            MissileCollisionDetection(missilePicBox2, enemyPicBox1, points);
+            MissileCollisionDetection(missilePicBox3, enemyPicBox1, points);
+
         }
         //and same thing for enemyPicBox2
         private void DrawEnemy2(int enemyImage)
         {
+            int points = 0;
 
             if (enemyImage == 1)
             {
@@ -321,18 +332,8 @@ namespace SpaceshipGame
                     //moving the enemy:
                     v.MoveTheEnemy(enemyPicBox2);
                 }
-                //COLLISION DETECTION FOR THE MISSILE: 
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
-                {  //set the EnemyTop somewhere randomly above the top of the screen between 
-                    //-99 and -130
+                points = v.PointValue;
 
-                    enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
-
-                    //If it's the right one:
-                    enemyPicBox2.Left = _enemyPosition.Next(230, 350);
-                    _player.Score += v.PointValue;
-
-                }
             }
             else if (enemyImage == 2)
             {
@@ -343,15 +344,7 @@ namespace SpaceshipGame
                 {
                     h.MoveTheEnemy(enemyPicBox2);
                 }
-                //COLLISION DETECTION FOR THE MISSILE: 
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
-                {
-                    enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
-                    enemyPicBox2.Left = _enemyPosition.Next(230, 350);
-                    _player.Score += h.PointValue;
-
-                }
-
+                points= h.PointValue;
 
             }
             else if (enemyImage == 3)
@@ -362,26 +355,34 @@ namespace SpaceshipGame
                 {
                     c.MoveTheEnemy(enemyPicBox2);
                 }
-                //COLLISION DETECTION FOR THE MISSILE: 
-                if (missilePicBox.Bounds.IntersectsWith(enemyPicBox2.Bounds))
-                {
-                    enemyPicBox2.Top = _enemyPosition.Next(99, 130) * -1;
-                    enemyPicBox2.Left = _enemyPosition.Next(230, 350);
-                    _player.Score += c.PointValue;
+                points= c.PointValue;
 
-                }
+            }
+            MissileCollisionDetection(missilePicBox, enemyPicBox2, points);
+            MissileCollisionDetection(missilePicBox2, enemyPicBox2, points);
+            MissileCollisionDetection(missilePicBox3, enemyPicBox2, points);
+        }
 
+        private void MissileCollisionDetection(PictureBox missileBox, PictureBox enemyBox, int points)
+        {
+            if(missileBox.Bounds.IntersectsWith(enemyBox.Bounds))
+            {                
+                missileBox.Top = -300;
+                enemyBox.Top = _enemyPosition.Next(99, 130) * -1;
+                enemyBox.Left = _enemyPosition.Next(230, 350);
+                _player.Score += points;                
             }
         }
 
 
-
         private void YouWinTimerEvent(Object sender, EventArgs e)
         {
+
+
             if (_isLoser)
             {
                 _timeLeft = 0;
-                GameOver();
+
             }
 
 
@@ -390,42 +391,29 @@ namespace SpaceshipGame
                 _timeLeft--;
                 youWinLabel.Visible = false;
                 btnStart.Enabled = false;
-                Score.Text = ($"Score: {_player.Score}");
+
             }
             else if (_timeLeft <= 0)
             {
-
                 _isGameRunning = false;
                 youWinLabel.Visible = true;
                 btnStart.Enabled = true;
-
                 _spaceSpeed = 0;
-                GameTimer.Stop();
-
-                //maybe run GameOver() here?  instead and put the above values in 
-                //GameOver. Also have a boolean value if you win or lose. 
-                //GameOver needs a Lose screen, too
-                //If you win, There could also be a FUNCTION that checks
-                //to see how your score matches up and if you're the high score
-                //you get to put in your initials like ol' school games
-                //in a txt file. 
+                gameTimer.Stop();
 
             }
-
-
         }
 
 
         private void GameOver()
         {
             _isGameRunning = false;
-            GameTimer.Stop();
+            gameTimer.Stop();
             _spaceSpeed = 0;
             btnStart.Enabled = true;
-            enemyPicBox2.Top = -189;
-            enemyPicBox1.Top = -150;
             youWinLabel.Text = "You Lose";
             youWinLabel.Visible = true;
+
 
         }
         //when the user clicks the button to Play the Game
@@ -439,25 +427,25 @@ namespace SpaceshipGame
 
         //after the user dies or wins, they can restart the game by clicking the button
         private void ResetGame()
-        {
-
-            _player.EmptyDictionary();
-            _player.FillInDictionary(missilePicBox, missilePicBox2, missilePicBox3);
+          {
+            _player.Score = 0;
+            missilePicBox.Top = -300;
+            missilePicBox2.Top = -300;
+            missilePicBox3.Top = -300;
+            enemyPicBox2.Top = -189;
+            enemyPicBox1.Top = -150;
             _isGameRunning = true;
             _goleft = false;
             _goright = false;
             btnStart.Enabled = false;
-            YouWinTimer.Enabled = true;
+            youWinTimer.Enabled = true;
             youWinLabel.Text = "You Win";
             youWinLabel.Visible = false;
-            _timeLeft = 5;
+            _timeLeft = 20;
             _spaceSpeed = 8;
-            _player.Score = 0;
             _isLoser= false;
 
-
-
-            GameTimer.Start();
+            gameTimer.Start();
 
         }
     }
