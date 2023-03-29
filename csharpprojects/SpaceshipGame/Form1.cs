@@ -44,7 +44,7 @@ namespace SpaceshipGame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // This was put in here by Visual Studio
+            // This was put in here by Visual Studio. 
         }
 
         //is the user pressing a key?
