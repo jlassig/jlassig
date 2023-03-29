@@ -40,12 +40,11 @@ namespace SpaceshipGame
         {
             //pulls up the form
             InitializeComponent();
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //I don't know what this does. This was put in here by Visual Studio
+            // This was put in here by Visual Studio
         }
 
         //is the user pressing a key?
@@ -66,8 +65,6 @@ namespace SpaceshipGame
                 {
                     _goright = true;
                 }
-
-
 
             }
 
@@ -140,7 +137,6 @@ namespace SpaceshipGame
 
                 //If it's the left one:
                 enemyPicBox2.Left = _enemyPosition.Next(80, 230);
-
             }
 
             //there are two background PictureBoxes, space1 and space2.  
@@ -172,17 +168,12 @@ namespace SpaceshipGame
                 _isLoser = true;
                 GameOver();
             }
-
-
-
-
         }
 
         private void FireMissile()
         {
             //check to see if we need to remove any missing from the List of missiles
             CheckMissileStatus();
-
 
             if (_missiles.Count == 0)
             {
@@ -205,6 +196,7 @@ namespace SpaceshipGame
             }
 
         }
+
         //check to see if we need to remove any missiles from the List<Missile> _missiles
         private void CheckMissileStatus()
         {
@@ -217,7 +209,6 @@ namespace SpaceshipGame
                 }
             }
         }
-
 
         //get a random space image:
         private void ChangeSpaceImage(PictureBox tempSpace)
@@ -374,18 +365,13 @@ namespace SpaceshipGame
             }
         }
 
-
         private void YouWinTimerEvent(Object sender, EventArgs e)
         {
-
-
             if (_isLoser)
             {
                 _timeLeft = 0;
 
             }
-
-
             else if (_timeLeft > 0)
             {
                 _timeLeft--;
@@ -414,8 +400,8 @@ namespace SpaceshipGame
             youWinLabel.Text = "You Lose";
             youWinLabel.Visible = true;
 
-
         }
+
         //when the user clicks the button to Play the Game
         private void StartGame(object sender, EventArgs e)
         {
@@ -424,8 +410,8 @@ namespace SpaceshipGame
             ResetGame();
         }
 
-
-        //after the user dies or wins, they can restart the game by clicking the button
+        //after the user dies or wins, they can restart the game by clicking the button 
+        //and all the variables get reset
         private void ResetGame()
           {
             _player.Score = 0;

@@ -44,8 +44,6 @@ namespace SpaceshipGame
             _missileTimer.Interval = _missileSpeed;
             _missileTimer.Tick += new EventHandler(MissileTimer_Tick);
             _missileTimer.Start();
-
-
         }
 
         public void MissileTimer_Tick(object sender, EventArgs e)
