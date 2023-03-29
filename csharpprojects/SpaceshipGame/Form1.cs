@@ -156,9 +156,8 @@ namespace SpaceshipGame
                 ChangeSpaceImage(space2);
             }
 
-            ////COLLISION DETECTION FOR THE PLAYER:
-
-            if(playerPictureBox.Image != null && enemyPicBox1.Image != null && playerPictureBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
+            //COLLISION DETECTION FOR THE PLAYER:
+            if (playerPictureBox.Image != null && enemyPicBox1.Image != null && playerPictureBox.Bounds.IntersectsWith(enemyPicBox1.Bounds))
             {
                 _isLoser = true;
                 GameOver();

@@ -33,7 +33,6 @@ namespace SpaceshipGame
                 if (enemyBox.Left > 304)
                 {
                     _isMovingRight = false;
-
                 }
             }
  
@@ -44,10 +43,7 @@ namespace SpaceshipGame
                 {
                     _isMovingRight = true;
                 }
-
-
-            }
-            
+            }            
 
         }
     }
