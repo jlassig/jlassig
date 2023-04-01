@@ -3,10 +3,11 @@
     "",
     "\\csharpprojects",
     "\\csharpprojects\\SpaceshipGame",
+    "\\csharpprojects\\SpaceshipGame\\Properties",
     "\\scripts",
     "\\styles",
     "\\webdesignprojects"
   ],
-  "SelectedNode": "\\csharpprojects\\SpaceshipGame\\Properties",
+  "SelectedNode": "\\csharpprojects\\SpaceshipGame\\Form1.cs",
   "PreviewInSolutionExplorer": false
 }

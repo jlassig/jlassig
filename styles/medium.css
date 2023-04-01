@@ -61,8 +61,6 @@
     border: 5px solid var(--primary-color);
     display: grid;
     grid-template-columns: 1fr 2fr;
-
-
   }
   .home-grid hero {
     grid-column: 1/4;
@@ -70,14 +68,9 @@
   .me-div {
     grid-column: 1/2;
     place-self: center;
-
-
-    
   }
   .aboutme {
     grid-column: 2/4;
-
-
   }
   .grid-div {
     grid-column: 1/4;
