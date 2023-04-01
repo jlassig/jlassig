@@ -4,6 +4,10 @@
   main {
     margin: 1em;
   }
+
+  .header-grid {
+    grid-template-columns: 1fr 3fr 1fr;
+  }
   #hamburgerBtn {
     display: none;
   }
@@ -36,9 +40,7 @@
   }
 
   .header-img-div {
-    grid-row: 1/4;
-    display: flex;
-    justify-content: center;
+    grid-column: 1/2;
   }
 
   .header-img-div img {
